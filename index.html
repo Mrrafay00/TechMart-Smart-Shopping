@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMart | Smart Shopping</title>
+    <!-- Google Fonts: Poppins for a clean, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for social media and icon links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for a clean, consistent color scheme */
+        :root {
+            --primary-color: #C0392B; /* A deep red */
+            --secondary-color: #E0E0E0; /* A light gray for card backgrounds */
+            --text-color: #333333; /* Dark charcoal */
+            --accent-color: #F1C40F; /* A vibrant yellow */
+            --border-color: #BDC3C7; /* A subtle border color */
+            --card-shadow: rgba(0, 0, 0, 0.08);
+            --bg-color: #F5F5F5; /* Page background, to avoid pure white */
+        }
+
+        /* Dark Mode Variables */
+        body.dark-mode {
+            --primary-color: #E74C3C; /* A brighter red for dark mode */
+            --secondary-color: #2C3E50; /* A dark blue-gray */
+            --text-color: #ECF0F1; /* Off-white text */
+            --accent-color: #F39C12; /* A golden yellow */
+            --border-color: #34495E;
+            --card-shadow: rgba(255, 255, 255, 0.1);
+            --bg-color: #1A202C;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ------------------- Header Section ------------------- */
+        .header {
+            background-color: var(--secondary-color);
+            box-shadow: 0 2px 4px var(--card-shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: top 0.3s ease, background-color 0.3s ease;
+        }
+
+        .header.sticky {
+            top: 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .cart-counter {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--accent-color);
+            color: var(--text-color); /* Updated for better contrast */
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.1rem 0.5rem;
+            border-radius: 50%;
+            display: none; /* Initially hidden */
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--text-color);
+        }
+        
+        /* ------------------- Hero Section ------------------- */
+        .hero {
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+        }
+        
+        .btn {
+            background-color: var(--accent-color);
+            color: var(--text-color); /* Updated for better contrast */
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            background-color: #F39C12; /* A darker yellow */
+        }
+
+        /* ------------------- Categories Section ------------------- */
+        .categories-section, .products-section, .contact-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background-color: var(--secondary-color);
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px var(--card-shadow);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px var(--card-shadow);
+        }
+        
+        .category-card .icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .category-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .category-card a.btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* ------------------- Product Grid Section ------------------- */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--secondary-color);
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px var(--card-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px var(--card-shadow);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .product-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-info p.price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #922B21; /* A darker red */
+        }
+
+        /* ------------------- Contact Section ------------------- */
+        .contact-form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px var(--card-shadow);
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #922B21;
+        }
+        
+        #form-message {
+            margin-top: 1rem;
+            font-weight: 600;
+            display: none;
+            text-align: center;
+        }
+
+        /* ------------------- Footer Section ------------------- */
+        .footer {
+            background-color: var(--text-color);
+            color: var(--secondary-color);
+            padding: 2rem 0;
+            text-align: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links a {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .copyright {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Optional Scroll-to-top button */
+        #scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        #scroll-to-top:hover {
+            opacity: 1;
+        }
+
+        /* ------------------- Responsive Design ------------------- */
+        /* Mobile phones (default styles, max-width: 767px) */
+        @media (max-width: 767px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* Tablets (768px to 1024px) */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .nav-links {
+                gap: 1rem;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1.1rem;
+            }
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Desktops/Laptops (1025px and up) */
+        @media (min-width: 1025px) {
+            .categories-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Header Section -->
+    <header class="header">
+        <div class="container navbar">
+            <a href="#hero-section" class="site-title">TechMart</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#hero-section">Home</a></li>
+                    <li><a href="#categories-section">Categories</a></li>
+                    <li><a href="#contact-section">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-right">
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter" id="cart-counter">0</span>
+                </div>
+                <div class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 2. Hero Section -->
+        <section class="hero" id="hero-section">
+            <div class="container">
+                <h1>Smart Shopping Starts Here</h1>
+                <p>Browse products across categories with ease and find the best deals on the latest tech.</p>
+                <a href="#categories-section" class="btn">Browse Now</a>
+            </div>
+        </section>
+
+        <!-- 3. Product Categories Section -->
+        <section class="categories-section" id="categories-section">
+            <div class="container">
+                <h2 class="section-title">Shop by Category</h2>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <i class="fas fa-laptop icon"></i>
+                        <h3>Laptops</h3>
+                        <a href="#products-section" class="btn">Explore</a>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-mobile-alt icon"></i>
+                        <h3>Smartphones</h3>
+                        <a href="#products-section" class="btn">Explore</a>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-headphones-alt icon"></i>
+                        <h3>Accessories</h3>
+                        <a href="#products-section" class="btn">Explore</a>
+                    </div>
+                    <div class="category-card">
+                        <i class="fas fa-home icon"></i>
+                        <h3>Smart Home</h3>
+                        <a href="#products-section" class="btn">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Product Grid Section -->
+        <section class="products-section" id="products-section">
+            <div class="container">
+                <h2 class="section-title">Featured Products</h2>
+                <div class="products-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <img src="https://placehold.co/400x250/BDC3C7/333333?text=Laptop" alt="Gaming Laptop">
+                        <div class="product-info">
+                            <h3>Gaming Laptop</h3>
+                            <p class="price">$1200</p>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <img src="https://placehold.co/400x250/BDC3C7/333333?text=Smartphone" alt="Flagship Smartphone">
+                        <div class="product-info">
+                            <h3>Flagship Smartphone</h3>
+                            <p class="price">$999</p>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Product 3 -->
+                    <div class="product-card">
+                        <img src="https://placehold.co/400x250/BDC3C7/333333?text=Headphones" alt="Noise-Cancelling Headphones">
+                        <div class="product-info">
+                            <h3>Noise-Cancelling Headphones</h3>
+                            <p class="price">$250</p>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Product 4 -->
+                    <div class="product-card">
+                        <img src="https://placehold.co/400x250/BDC3C7/333333?text=Smartwatch" alt="Fitness Smartwatch">
+                        <div class="product-info">
+                            <h3>Fitness Smartwatch</h3>
+                            <p class="price">$199</p>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Product 5 -->
+                    <div class="product-card">
+                        <img src="https://placehold.co/400x250/BDC3C7/333333?text=Speaker" alt="Smart Speaker">
+                        <div class="product-info">
+                            <h3>Smart Speaker</h3>
+                            <p class="price">$79</p>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Product 6 -->
+                    <div class="product-card">
+                        <img src="https://placehold.co/400x250/BDC3C7/333333?text=Keyboard" alt="Mechanical Keyboard">
+                        <div class="product-info">
+                            <h3>Mechanical Keyboard</h3>
+                            <p class="price">$150</p>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Product 7 -->
+                    <div class="product-card">
+                        <img src="https://placehold.co/400x250/BDC3C7/333333?text=Mouse" alt="Wireless Mouse">
+                        <div class="product-info">
+                            <h3>Wireless Mouse</h3>
+                            <p class="price">$50</p>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                    <!-- Product 8 -->
+                    <div class="product-card">
+                        <img src="https://placehold.co/400x250/BDC3C7/333333?text=Camera" alt="Webcam">
+                        <div class="product-info">
+                            <h3>4K Webcam</h3>
+                            <p class="price">$120</p>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Contact Section -->
+        <section class="contact-section" id="contact-section">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                <div class="contact-form-container">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </form>
+                    <p id="form-message"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 7. Footer Section -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-links">
+                <a href="#hero-section">Home</a>
+                <a href="#categories-section">Categories</a>
+                <a href="#contact-section">Contact</a>
+            </div>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2025 TechMart. All rights reserved.</p>
+    </footer>
+
+    <!-- Optional Scroll-to-top button -->
+    <button id="scroll-to-top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- JavaScript for optional features -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('.header');
+            const navLinks = document.querySelectorAll('.nav-links a, .btn');
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            const cartCounter = document.getElementById('cart-counter');
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+            const themeToggleBtn = document.getElementById('theme-toggle');
+
+            // Function to handle sticky header
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    header.classList.add('sticky');
+                } else {
+                    header.classList.remove('sticky');
+                }
+                
+                // Show/hide scroll-to-top button
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.style.display = 'block';
+                } else {
+                    scrollToTopBtn.style.display = 'none';
+                }
+            });
+
+            // Smooth scrolling for navigation links and buttons
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Only prevent default for internal links
+                    if (link.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = link.getAttribute('href');
+                        const targetSection = document.querySelector(targetId);
+                        if (targetSection) {
+                            window.scrollTo({
+                                top: targetSection.offsetTop - header.offsetHeight,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Add to cart functionality
+            let cartCount = 0;
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    cartCount++;
+                    cartCounter.textContent = cartCount;
+                    cartCounter.style.display = 'block';
+                });
+            });
+
+            // Contact form validation and submission
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const name = document.getElementById('name');
+                const email = document.getElementById('email');
+                const message = document.getElementById('message');
+
+                if (!name.value || !email.value || !message.value) {
+                    formMessage.textContent = 'Please fill out all fields.';
+                    formMessage.style.color = 'var(--primary-color)';
+                    formMessage.style.display = 'block';
+                } else if (!email.value.includes('@')) {
+                    formMessage.textContent = 'Please enter a valid email address.';
+                    formMessage.style.color = 'var(--primary-color)';
+                    formMessage.style.display = 'block';
+                } else {
+                    formMessage.textContent = 'Thank you! Your message has been sent.';
+                    formMessage.style.color = 'var(--accent-color)';
+                    formMessage.style.display = 'block';
+                    contactForm.reset();
+                }
+            });
+
+            // Scroll-to-top button functionality
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Light/Dark mode toggle
+            themeToggleBtn.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                themeToggleBtn.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+        });
+    </script>
+</body>
+</html>
